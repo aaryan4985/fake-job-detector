@@ -11,6 +11,7 @@ const JobSchema = new mongoose.Schema({
     is_fake: { type: Boolean, required: true },
     confidence: { type: Number, required: true },
     reasons: { type: [String] },
+    analytics: { type: Object },
     createdAt: { type: Date, default: Date.now }
 });
 

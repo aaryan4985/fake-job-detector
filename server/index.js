@@ -40,7 +40,7 @@ app.post('/analyze-job', async (req, res) => {
             return res.status(500).json({ error: 'Error connecting to ML service.' });
         }
         
-        const { is_fake, confidence, reasons } = mlResponse.data;
+        const { is_fake, confidence, reasons, analytics } = mlResponse.data;
         
         // Save to DB
         const newJob = new Job({
@@ -53,7 +53,8 @@ app.post('/analyze-job', async (req, res) => {
             email: jobData.email || '',
             is_fake: is_fake,
             confidence: confidence,
-            reasons: reasons
+            reasons: reasons,
+            analytics: analytics
         });
         
         await newJob.save();
@@ -62,7 +63,8 @@ app.post('/analyze-job', async (req, res) => {
             job: newJob,
             is_fake,
             confidence,
-            reasons
+            reasons,
+            analytics
         });
         
     } catch (err) {
